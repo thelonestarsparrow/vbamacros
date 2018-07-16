@@ -1,0 +1,34 @@
+'vba macro for powerpoint
+'macro that goes through every slide of a presentation and resizes images that fall on the left and right side of the slide
+'skips text boxes
+'finds images that are the left side of the slide and applies: resize and placement on left side; then finds images on the right side of the slide and applies: resize and placement
+
+Sub PictureSizer()
+
+    For NumSlide = 1 To ActivePresentation.Slides.Count
+    ActivePresentation.Slides(NumSlide).Select
+    
+    For Each Picture In ActiveWindow.Selection.SlideRange.Shapes
+        If Picture.HasTextFrame Then
+            
+        ElseIf Picture.Left < 360 Then '4 inches x 72 points/inch
+        Picture.LockAspectRatio = msoTrue
+        Picture.Height = 324 '4.5 inches x 72 points/inch
+        Picture.Left = 79.2 '1.1 inches
+        Picture.Top = 144 '2 inches
+        
+        ElseIf Picture.Left > 360 Then
+        Picture.LockAspectRatio = msoTrue
+        Picture.Height = 324 '4.5 inches x 72 points/inch
+        Picture.Left = 554.4 '7.7 inches
+        Picture.Top = 144 '2 inches
+        
+        End If
+        
+        Next
+    
+
+Next
+
+End Sub
+
